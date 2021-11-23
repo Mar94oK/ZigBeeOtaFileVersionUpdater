@@ -38,13 +38,14 @@ std::string GetFilePath(std::string fullPath)
 
 #ifdef __linux__
 	std::string delimiter = "/";
+//	std::string delimiter = "\\";
 #elif _WIN32
-	std::string delimiter = "\";
+	std::string delimiter = "\\";
 #endif
 	
 	
 	
-	size_t pos = 0;
+	unsigned int pos = 0;
 	std::string token;
 	std::vector<std::string> tokens;
 	std::string result = "";
@@ -68,6 +69,11 @@ std::string GetFilePath(std::string fullPath)
 }
 
 
+void ShowHelp()
+{
+	std::cerr << "Usage: ./ZigBeeOtaFilesVersionHacker -f \"{filepath}\"" << std::endl;
+}
+
 
 int main(int argc, char** argv)
 {
@@ -76,19 +82,17 @@ int main(int argc, char** argv)
 	std::cout << "ZigBee Ota-Files Version Hacker. Version: " << "1.0.0" << std::endl;
 	std::string input = "";
 	
-//	int opt;
-//	if ( (argc <= 1) || (argv[argc-1] == NULL) || (argv[argc-1][0] == '-') )
-//	{
-//		std::cerr << "No argument provided!" << std::endl;
-//		return 1;
-//	}
-//	else
-//	{
-//		input = argv[argc-1];
-//	}
-	
-	if (debug)
-		std::cout << "input = " << input << std::endl;
+	if ( (argc <= 1) || (argv[argc-1] == NULL) || (argv[argc-1][0] == '-') )
+	{
+		std::cerr << "No argument provided!" << std::endl;
+		ShowHelp();
+		return 1;
+	}
+	else
+	{
+		input = argv[argc-1];
+	}
+
 	
 	int c;
 	int optionCount = 0;
